@@ -77,20 +77,6 @@ public class Traversals {
 
   // OPTIONAL CHALLENGE
   /**
-   * Finds all paths from the root to every leaf in the given tree.
-   * Each path is represented as a list of node values from root to leaf.
-   * If node is null, returns an empty list.
-   *
-   * @param node the node of the tree
-   * @param <T>  the type of values stored in the tree
-   * @return a list of lists, where each inner list represents a root-to-leaf path
-   */
-  public static <T> List<List<T>> findAllRootToLeafPaths(TreeNode<T> node) {
-    return null;
-  }
-
-  // OPTIONAL CHALLENGE
-  /**
    * Checks if two trees have the same shape. Two trees have the same shape
    * if they have exactly the same arrangement of nodes, irrespective of the node values.
    * If both trees are null, returns true. If one is null and the other is not, returns false.
@@ -102,5 +88,37 @@ public class Traversals {
    */
   public static <T> boolean haveSameShape(TreeNode<T> nodeA, TreeNode<T> nodeB) {
     return false;
+  }
+
+
+  // OPTIONAL CHALLENGE
+  // Very challenging!
+  // Hints:
+  // List.copyOf may be helpful
+  // Consider adding a helper method
+  // Consider keeping the current path in a separate variable
+  // Consider removing the current node from the current path after the node's subtrees have been traversed.
+  /**
+   * Finds all paths from the root to every leaf in the given tree.
+   * Each path is represented as a list of node values from root to leaf.
+   * The paths should be added pre-order.
+   * If node is null, returns an empty list.
+   * 
+   * Example:
+   *
+   *         1
+   *        / \
+   *       2   3
+   *      / \    \
+   *     4   5    6
+   * 
+   * Expected output:
+   *   [[1, 2, 4], [1, 2, 5], [1, 3, 6]]
+   * 
+   * @param node the root node of the tree
+   * @return a list of lists, where each inner list represents a root-to-leaf path in pre-order
+   */
+  public static <T> List<List<T>> findAllRootToLeafPaths(TreeNode<T> node) {
+    return null;
   }
 }

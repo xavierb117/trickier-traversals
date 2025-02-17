@@ -400,57 +400,6 @@ public class TraversalsTest {
     }
 
     // ---------------------------------------------------------
-    // Test (Challenge): findAllRootToLeafPaths
-    // ---------------------------------------------------------
-
-    @Test
-    void testFindAllRootToLeafPaths_nullTree() {
-        TreeNode<String> root = null;
-        List<List<String>> expected = Collections.emptyList();
-        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
-    }
-
-    @Test
-    void testFindAllRootToLeafPaths_singleNode() {
-        TreeNode<String> root = new TreeNode<>("Single");
-        // Only one root-to-leaf path: ["Single"]
-        List<List<String>> expected = List.of(List.of("Single"));
-        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
-    }
-
-    @Test
-    void testFindAllRootToLeafPaths_multiplePaths() {
-        /*
-         *       "R"
-         *      /   \
-         *   "L"    "RightNode"
-         *    / \
-         * "LL" "LR"
-         *
-         * Paths:
-         *   R -> L -> LL
-         *   R -> L -> LR
-         *   R -> RightNode
-         */
-        TreeNode<String> root = new TreeNode<>(
-            "R",
-            new TreeNode<>(
-                "L",
-                new TreeNode<>("LL"),
-                new TreeNode<>("LR")
-            ),
-            new TreeNode<>("RightNode")
-        );
-        List<List<String>> expected = new ArrayList<>();
-        expected.add(List.of("R", "L", "LL"));
-        expected.add(List.of("R", "L", "LR"));
-        expected.add(List.of("R", "RightNode"));
-
-        // Order of paths in the output may differ, but let's compare directly here.
-        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
-    }
-
-    // ---------------------------------------------------------
     // Test (Challenge): haveSameShape
     // ---------------------------------------------------------
 
@@ -515,5 +464,92 @@ public class TraversalsTest {
             null
         );
         assertFalse(Traversals.haveSameShape(a, b));
+    }
+
+    // ---------------------------------------------------------
+    // Test (Challenge): findAllRootToLeafPaths
+    // ---------------------------------------------------------
+
+    @Test
+    void testFindAllRootToLeafPaths_nullTree() {
+        TreeNode<String> root = null;
+        List<List<String>> expected = Collections.emptyList();
+        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
+    }
+
+    @Test
+    void testFindAllRootToLeafPaths_singleNode() {
+        TreeNode<String> root = new TreeNode<>("Single");
+        // Only one root-to-leaf path: ["Single"]
+        List<List<String>> expected = List.of(List.of("Single"));
+        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
+    }
+
+    @Test
+    void testFindAllRootToLeafPaths_multiplePaths() {
+        /*
+         *       "R"
+         *      /   \
+         *   "L"    "RightNode"
+         *    / \
+         * "LL" "LR"
+         *
+         * Paths:
+         *   R -> L -> LL
+         *   R -> L -> LR
+         *   R -> RightNode
+         */
+        TreeNode<String> root = new TreeNode<>(
+            "R",
+            new TreeNode<>(
+                "L",
+                new TreeNode<>("LL"),
+                new TreeNode<>("LR")
+            ),
+            new TreeNode<>("RightNode")
+        );
+        List<List<String>> expected = new ArrayList<>();
+        expected.add(List.of("R", "L", "LL"));
+        expected.add(List.of("R", "L", "LR"));
+        expected.add(List.of("R", "RightNode"));
+
+        // Order of paths in the output may differ, but let's compare directly here.
+        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
+    }
+
+    @Test
+    void testFindAllRootToLeafPaths_integerTree() {
+        /*
+        *         1
+        *        / \
+        *       2   3
+        *      / \    \
+        *     4   5    6
+        *
+        * Expected Paths (in pre-order traversal):
+        *   1 -> 2 -> 4
+        *   1 -> 2 -> 5
+        *   1 -> 3 -> 6
+        */
+        TreeNode<Integer> root = new TreeNode<>(
+            1,
+            new TreeNode<>(
+                2,
+                new TreeNode<>(4),
+                new TreeNode<>(5)
+            ),
+            new TreeNode<>(
+                3,
+                null,
+                new TreeNode<>(6)
+            )
+        );
+
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(List.of(1, 2, 4));
+        expected.add(List.of(1, 2, 5));
+        expected.add(List.of(1, 3, 6));
+
+        assertEquals(expected, Traversals.findAllRootToLeafPaths(root));
     }
 }
