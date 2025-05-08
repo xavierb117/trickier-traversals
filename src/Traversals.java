@@ -90,17 +90,24 @@ public class Traversals {
    * @return the number of unique values in the tree, or 0 if the tree is null
    */
   public static int countDistinctValues(TreeNode<Integer> node) {
-    Set<Integer> unique = new HashSet<>();
-    collectValues(node, unique);
-    return unique.size();
-  }
+    if (node == null) {
+      return 0;
+    }
 
-  private static void collectValues(TreeNode<Integer> node, Set<Integer> set) {
-    if (node == null) return;
+    Queue<TreeNode<Integer>> queue = new LinkedList<>();
+    Set<Integer> set = new HashSet<>();
+    queue.offer(node);
 
-    set.add(node.value);
-    collectValues(node.left, set);
-    collectValues(node.right, set);
+    while (!queue.isEmpty()) {
+      TreeNode<Integer> newNode = queue.poll();
+      if (newNode != null) {
+        set.add(newNode.value);
+        queue.add(newNode.left);
+        queue.add(newNode.right);
+      }
+    }
+
+    return set.size();
   }
 
   /**
