@@ -69,6 +69,10 @@ public class Traversals {
     Queue<TreeNode<T>> queue = new LinkedList<>();
     List<T> holdVals = new LinkedList<>();
 
+    if (node == null) {
+      return holdVals;
+    }
+
     queue.add(node);
     while (!queue.isEmpty()) {
       TreeNode<T> current = queue.poll();
@@ -123,15 +127,23 @@ public class Traversals {
       return false;
     }
 
-    if (node.left == null && node.right == null) {
-      return true;
+    Stack<TreeNode<Integer>> stack = new Stack<>();
+    int setMax = Integer.MIN_VALUE;
+    stack.push(node);
+
+    while (!stack.isEmpty()) {
+      TreeNode<Integer> newNode = stack.pop();
+      if (newNode != null && newNode.value > setMax) {
+        if (newNode.left == null && newNode.right == null) {
+          return true;
+        }
+        setMax = newNode.value;
+        stack.push(newNode.right);
+        stack.push(newNode.left);
+      }
     }
-    else if (node.left.value < node.value && node.right.value < node.value) {
-      return false;
-    }
-    else {
-      return hasStrictlyIncreasingPath(node.left) || hasStrictlyIncreasingPath(node.right);
-    }
+
+    return false;
   }
 
   // OPTIONAL CHALLENGE
